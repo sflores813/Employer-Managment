@@ -64,5 +64,50 @@ function start() {
         case "Finish":
             stop();
             break;
-    }
-})
+    };
+});
+};
+
+// function to add a department
+    function addDepartment(){
+        inquirer.prompt([{
+            type: "input",
+            message: "What is the department name?",
+            name: "department",
+        }])
+        .then(function(res){
+            connection.query('INSERT INTO department (name) Values (?)', (res,departmet), function(err){
+                if (err) throw err;
+            })
+            start();
+        })
+    };
+
+    // function to add role data
+
+
+    //function to add employee data
+
+    
+
+    // function to View role
+
+
+
+    // function to View employee
+
+
+
+    // function to View department
+
+
+
+    // function to Update employee
+
+
+
+    // function to finish
+
+
+
+    
