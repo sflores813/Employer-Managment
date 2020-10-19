@@ -43,19 +43,19 @@ function start() {
             return addDepartment();
             break;
         case "Add Role":
-            return addRoll();
+            return addRole();
             break;
         case "Add Employee":
             return addEmployee();
             break;
         case "View Role":
-            return Viewoll();
+            return viewRole();
             break;
         case "View Employee":
-            return ViewEmployee();
+            return viewEmployee();
             break;
         case "View Department":
-            return ViewDepartment();
+            return viewDepartment();
             break;
         case "Upadate Employee Role":
             return updateRole();
@@ -148,7 +148,7 @@ function start() {
 
     // function to View role
 
-function viewRoles() {
+function viewRole() {
     connection.query("SELECT * FROM role" , function(err,res) {
         console.table(res);
         if (err) throw err;
@@ -170,7 +170,7 @@ function(err, res) {
 
 // function to View department
 
-function ViewDepartment() {
+function viewDepartment() {
     connection.query("SELECT * FROM department", function(err, res){
         console.table(res);
         if(err); throw err;
