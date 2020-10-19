@@ -57,7 +57,7 @@ choices: [
         case "Update Employee Role":
             return updateRole();
             break;
-            case "Nothing":
+            case "finish":
                 stop();
                 break;
 
@@ -68,8 +68,8 @@ choices: [
 function addDepartment(){
     inquirer.prompt([{
         type: "input",
-        message: "Department Name:",
-        name: "department"
+        name: "department name",
+        message: "What is the name of the department?",
     }])
     .then(function(res){
         connection.query('INSERT INTO department (name) VALUES (?)', (res.department), function(err){
@@ -84,7 +84,7 @@ function addRole() {
     inquirer.prompt([{
         type: "input",
         name: "title",
-        message: "What is the name of the role?",
+        message: "What is the title of the role?",
     }, {
         type: "number",
         name: "salary",
@@ -96,7 +96,7 @@ function addRole() {
     }]).then(function(res) {
         connection.query("INSERT INTO role (title, salary, department_id) values (?, ?, ?)", [res.title, res.salary, res.department_id], function(err, data) {
             if (err) throw err;
-            // console.table(data);
+             console.table(data);
         })
         start();
     })
