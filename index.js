@@ -34,9 +34,8 @@ function start() {
              "Update Employee Role",
              "Finish",
             ]   
-           }
-       )
-   }
+           })
+   
              
 .then(function(result) {
     switch (result.options){
@@ -153,45 +152,18 @@ function viewRoles() {
     });
 };
 
-    //function to update update roles
-    function updateRole() {
-        inquirer.prompt([
-            {
-                type:"input",
-                message: "What is the first name of the employee you would like to update?",
-                name:"first name",
-            },
-            { 
-            type: "input",
-            message:"What is the last name of the employee you would like to update?",
-            },
-            {
-                type:"input",
-                message:"What you like to update?",
-                name:"employee update"
-            }
-        ])
-        .then(function (answer) {
-            const query = "UPDATE employee SET role_id = " + answer.UpdateInfo + " WHERE first_name = '" + answer.firstName + "' and last_name='" + answer.lastName + "'";
-      
-            connection.query(query, function (err, res) {
-              if (err) throw err;
-            })
-            start();
-        })
-    }
-    // function to View employee
+// function to View employee
 
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id",")
-    function(err, res) {
-        console.table(res);
-        if(err) throw err;
-        start();
-    });
+connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id",")
+function(err, res) {
+    console.table(res);
+    if(err) throw err;
+    start();
+});
 
 
 
-    // function to View department
+// function to View department
 
 function ViewDepartment() {
     connection.query("SELECT * FROM department", function(err, res){
@@ -202,14 +174,41 @@ function ViewDepartment() {
 };
 
 
-    // function to Update employee
+// function to Update employee
 
+//function to update update roles
+function updateEmployee() {
+    inquirer.prompt([
+        {
+            type:"input",
+            message: "What is the first name of the employee you would like to update?",
+            name:"first name",
+        },
+        { 
+        type: "input",
+        message:"What is the last name of the employee you would like to update?",
+        },
+        {
+            type:"input",
+            message:"What you like to update?",
+            name:"employee update"
+        }
+    ])
+    .then(function (answer) {
+        const query = "UPDATE emploSyee SET role_id = " + answer.UpdateInfo + " WHERE first_name = '" + answer.firstName + "' and last_name='" + answer.lastName + "'";
+  
+        connection.query(query, function (err, res) {
+          if (err) throw err;
+        })
+        start();
+    })
+}
 
 
     // function to finish
     function stop() {
         connection.end();
-        process.exit();
+        process.exit()
     }
 
 
