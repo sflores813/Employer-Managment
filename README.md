@@ -12,9 +12,12 @@
 * [Test](#Test)
 * [Questions](#Questions)
 ## Installation
-  
+  youll need to do an npm install, npm install mysql, npm install inquirer, npm install console.table
 ## Usage
   to update you staff
+[![screenshot1]("assests\screen shot1.jpg")]
+link to you working youtube video:" https://youtu.be/OObS6qOYm_4 " 
+
 ## License
   MIT
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
