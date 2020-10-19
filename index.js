@@ -1,13 +1,13 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 require("console.table")
-require("dotenv").config();
 
+// -- start connections
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Baloo1234!",
+    password: "",
     database: "employee_databaseDB"
 });
 
@@ -15,7 +15,7 @@ connection.connect(function(err) {
     if (err) throw err;
     start();
 });
-
+//-- function to bring up prompts
 function start(){
     inquirer.prompt(
         {
@@ -33,6 +33,7 @@ choices: [
     "finish",
         ]
     })
+
 .then(function(result) {
     switch (result.options){
         case "Add Department":
@@ -63,7 +64,7 @@ choices: [
     };
 });
 };
-
+//-- function to add department data
 function addDepartment(){
     inquirer.prompt([{
         type: "input",
@@ -78,7 +79,7 @@ function addDepartment(){
     })
 };
 
-
+//-- function to add role data
 function addRole() {
     inquirer.prompt([{
         type: "input",
@@ -101,7 +102,7 @@ function addRole() {
     })
 
 };
-
+//-- function to add  to add employee data
 function addEmployee() {
     // prompt for info
     inquirer.prompt([{
@@ -126,7 +127,7 @@ function addEmployee() {
         },
       ])
       .then(function (answer) {
-        // insert a new employee into the db with that info
+        //-- function to insert dat into table
         connection.query(
           "INSERT INTO employee SET ?", {
             first_name: answer.firstName,
@@ -142,6 +143,7 @@ function addEmployee() {
         );
       });
   }
+  //-- function to view departments
     function viewDepartments() {
         connection.query("SELECT * FROM department", function(err, res) {
             console.table(res);
@@ -149,7 +151,7 @@ function addEmployee() {
             start();
         });
     };
-    
+    //-- function to view roles
     function viewRoles() {
         connection.query("SELECT * FROM role", function(err, res) {
             console.table(res);
@@ -157,6 +159,7 @@ function addEmployee() {
             start();
         });
     };
+    //-- function to view employees
     function viewEmployees() {
         connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id",
             function(err, res) {
@@ -165,6 +168,7 @@ function addEmployee() {
                 start();
             });
     };
+    //-- function to update Roles
     function updateRole() {
         inquirer.prompt([
           {
@@ -193,7 +197,7 @@ function addEmployee() {
           })
       
       }
-      
+      //-- function to stop connection
     function stop() {
         connection.end();
         process.exit();
