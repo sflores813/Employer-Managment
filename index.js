@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password:"",
+    password:"Baloo1234!",
     database: "employee_databaseDB"
 });
 //starts connection to server
@@ -22,7 +22,7 @@ function start() {
     inquirer.prompt(
         {
          type: "list",
-         message: "Welcome, scroll below to select youre choice",
+         message: "Welcome, scroll below to select a task!",
          name: "options",
          choices: [
              "Add Deparment",
@@ -32,7 +32,7 @@ function start() {
              "View Roles",
              "View Employee",
              "Update Employee Role",
-             "Finish",
+             "Finish seting up",
             ]   
            })
    
@@ -90,15 +90,19 @@ function start() {
             message: "What is the employee's role?:",
         }, {
             type: "number",
-            name: "salary"
+            name: "salary",
             message: "What is the employees salary?",
-        },
-            type:    
+        }, {
+            type: "number",
+            name: "department_id",
+            message: "what is the departments ID",
+
+
         }])
-    }
+    };
 
     //function to add employee data
-    funtion addEmployee() {
+    function addEmployee() {
         inquirer.prompt([{
         name:"firstname",
         type: "input",
@@ -138,7 +142,7 @@ function start() {
             }
         );
      });
-    }
+ }
         
 
 
@@ -154,7 +158,7 @@ function viewRoles() {
 
 // function to View employee
 
-connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id",")
+connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id",
 function(err, res) {
     console.table(res);
     if(err) throw err;
@@ -163,11 +167,12 @@ function(err, res) {
 
 
 
+
 // function to View department
 
 function ViewDepartment() {
     connection.query("SELECT * FROM department", function(err, res){
-        console.table(res),
+        console.table(res);
         if(err); throw err;
         start();
     });
@@ -177,7 +182,7 @@ function ViewDepartment() {
 // function to Update employee
 
 //function to update update roles
-function updateEmployee() {
+function updateRole() {
     inquirer.prompt([
         {
             type:"input",
